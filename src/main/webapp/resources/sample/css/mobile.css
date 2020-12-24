@@ -1,0 +1,265 @@
+@charset "UTF-8";
+@import url(http://fonts.googleapis.com/earlyaccess/nanumgothic.css);
+/* 모바일용 스타일지정 시작  */
+body {
+font-size:14px;
+background:#fff;	
+line-height:1.4 important;/* 상속전바로전에 적용한 값을 초기화 initial 시키는역할*/
+font-family:"nanum Gothic", "nanumGothic" !important;
+background:#bbb;
+}
+/* 부트스트랩css영향을 받는 부분을 무효화시키기 (아래) */
+ul {
+margin-bottom: inherit !important;/* css위치와 상관없이 무조건, 강제로 */
+}/*헤더영역*/
+.header {
+height:80px;
+position:relative;/*상대적인 위치 다른예는 absolute절대적인 위치 = fixed붙박이*/
+padding:0% 2%;
+/*안쪽여백: 바깥쪽여백은 margin입니다. 18px(상하여백)5%(좌우여백)*/
+/*padding:18px 5% 18px 5%; 시계방향으로 진행 시작 위쪽부터 시작의 약자로 위로 표시됩니다
+만약 padding:18px 5% 5%; 3가지 모두 동일. 18px(상여백), 5%(좌우여백), 5%(하여백)
+*/
+}
+.header .LOGO {
+float:left;/*float: 떠다니는 영역==세로배치를 가로배치로 변경처리에 사용됨*/
+}
+.header .LOGO a {
+font-size:26px;/* 글자 크기 */
+color:#ece6cc;/* 글자색상 */
+font-weight:normal;/* 글꼴두께 */
+display:block;
+text-indent:-9999%;
+height:80px;
+background:url(/resources/sample/img/logo.jpg) no-repeat;/* 배경이미지는 기본이 반복(repeat) */
+background-size:80%;
+background-position:0px center;/* 배경위치는 첫번째는 가로위치, 두번째는 세로위치입니다. */
+
+}
+.header .menu-toggle-btn { /*토글==toggle:똑딱이*/
+float:right;
+width:20px;
+margin-top:28px;
+cursor:pointer;/* 마우스 커서모양을 손 모양으로 변경하는 명령 */
+}
+.header .menu-toggle-btn span {
+display:block;height:2px;
+width:100%; /* 여기서 100%는 .menu-toggle-btn영역의 가로크기20px까지가 100%임. */
+background:#ece6cc;
+margin-bottom:5px;
+}
+.header .gnb {
+display:none;/*페이지로딩할때에는 숨겨야하기때문에 none으로 처리*/
+position:absolute;/*gnb영역의 위치를 절대 위치로지정*/
+top:80px;
+left:0px;
+width:100%;
+background:#ece6cc;
+z-index:21;/* 화면에서 콘텐츠가 겹치는 z인덱스 */
+}
+.header .gnb li {
+/* border== 테두리, bottom== 밑, top== 위, left-right==좌우, solid==실선, #16진수(색상) */
+border:1px solid #fff;
+border-bottom:0px;
+
+}
+/* 가상선택자 : 사용 */
+.header .gnb li:last-child {
+border-bottom:1px solid #fff;
+}
+.header .gnb li a {
+display:block;/* 1줄 전체 자리를 차지하는 영역 :()inline-block 자리를 차지하지만, */
+padding:14px 0 14px 5%;
+font-size:14px;
+color:#fff;
+}
+/* 헤더영역끝 */
+
+
+/* we are 페이지 영역시작 */
+.weare-header {
+margin-top:30px;
+text-align:center;
+}
+.section-title {
+margin-bottom:30px;
+font-size:42px;
+color:#ece6cc;
+font-weight:nomal;
+letter-spacing:5px;/*글자사이간격*/
+}
+.weare-header p {
+color:#616161;
+line-height:1.9;/* 줄간격 단위 1.9 글자크기에 1.9배수 */
+font-size:14px;
+}
+.weare-body {
+margin-top:68px;
+}
+.weare-body li {
+text-align:center;
+margin-top:50px;/* 게시물 사이 간격li태그 4개 간격주기 */
+}
+.weare-body li img {
+height:220px;/* 이미지는 가로든 세로든 1쪽 크기를 지정하면, 비율을 유지하면서 크기가 조정된다.*/
+}
+.weare-body li h2 {
+margin:20px 0px;
+font-size:32px;
+font-weight:nomal;
+color:#ece6cc;
+}
+.weare-body li p {
+font-size:14px;
+}
+/* we are 페이지 영역끝 */
+.work-section {
+text-align:center;
+margin-top:30px;
+}
+.work-section li img {
+width:100%;
+}
+.work-section li a {
+display:block;
+width:100%;
+height:100%;
+position:relative;
+}
+/* 마우스를 롤오버했을때 나오는 배경색상을 before가상요소 영역 */
+.work-section li a::before {
+display:block;
+background:#ece6cc;
+position:absolute;/* 이 절대값 위치는 위 a태그에서 지정한 relative상대위치에 한정해서 절대위치로 지정됨 */
+width:100%;
+height:100%;
+top:0px;
+left:0px;
+content:"";
+opacity:0;
+transition:all 0.3s;
+/* 화면전환 욥션 transform 묘양 변화에 대해 화면 전환옵션, width, height */
+}
+.work-section li a:hover::before {
+opacity:0.4;
+}
+.work-section li .info {
+display:block;/* 화면에서 자리를 차지하기위해서 block지정 */
+position:absolute;
+color:#fff;
+text-align:left;
+opacity:0;
+transition:all 0.3s;
+}
+.work-section li a:hover .info {
+opacity:1;
+transform:translatey(20px);
+}
+.info h2 {
+font-size:26px;
+font-weight:nomal;
+}
+.info p {
+font-size:14px;
+padding:10px 0px;
+}
+/* 워크영역 끝 */
+/* 블로그영역 시작 */
+.blog-section {
+margin-top:30px;
+}
+.blog-section h1 {
+text-align:center;
+font-size:30px;
+color:#ece6cc;
+font-weight:nomal;
+}
+.blog-section .container {width:90%;margin0px auto;}
+/* 위에서 현재영역을 가운데 정렬시 margin:0 auto; 좌우로5%가 자동으로 잡힘 */
+.blog-section li {
+margin-top:30px;
+}
+.blog-section li img {
+width:100%;
+}
+.blog-section li time {
+display:block;
+margin:10px 0px;
+font-size:12px;
+color:#777;
+}
+.blog-section li h2 {
+color:#424242;
+font-weight:nomal;
+line-height:1.6;/* 줄간격단위는 현재 글자크기의 배수 */
+}
+/* reset.css. 에서 hr태그를 display:none;적용했기때문에, 특별히 blog영역에서만 hr지정 */
+.blog-section hr {display:block;height:1px; background:#ece6cc;}
+
+
+}
+/*blog영역끝 */
+/* contact 영역 시작 */
+.contactus-section {
+margin-top:30px;
+}
+.contactus-section h1 {
+font-size:42px;
+text-align:center;
+color:#ece6cc;
+font-weight:normal;
+}
+.contactus-section .container {
+width:90%;
+margin:0 auto;/*가운데정렬 30px auto 0px; */
+margin-top:30px;
+}
+.contactus-section label {
+display:none;/* 모바일에서는 숨기지만, 테블릿+PC용에서는 보이게 처리예정 */
+}
+.contactus-section form input {
+width:100%;
+line-height:1.2;
+padding:0 2px;
+height:40px;
+border:none;/*테두리 삭제*/
+border-bottom:1px solid #ccc;/* 테두리 선설정:굵기,solid실선,dotted점선 ,선색상 */
+background:transparent;/*배경색상 투명처리*/
+}
+.contactus-section form textarea {
+width:100%;
+background:transparent;
+line-height:1.2;
+border:none;
+border-bottom:1px solid #ccc;
+min-height:100px;/*최소높이를 지정하는 이유는 내용이 없더라도, 높이를 100px로 고정하는 의미*/
+padding-top:10px;
+padding-bottom:10px;
+}
+.contactus-section form button {
+padding:15px;/*여백이 있는 버튼을 만들기*/
+font-size:12px;
+background:#ece6cc;
+color:#fff;
+border:0px;
+}
+.submit-btn {
+margin-top:10px;
+text-align:right;/*div영역안쪽의 내용을 좌우 정렬시키는 명령*/
+}
+/* contact 영역 끝 */
+
+/* 푸터영역시작 */
+.footer {
+margin-top:30px;
+background:#ece6cc;
+}
+.footer p {
+margin: 21px 0px;
+color:#fff;
+text-align:center;/*문장내용을 가로 가운데 정렬*/
+}
+/* 푸터영역끝 */
+#wrap .slider img {width:100%;}/* Cascade Style Sheet 특징 계단형 스타일지정 */
+.carousel-item, .carousel-item img {height:300px;}
+/* 모바일용 스타일지정 끝 */

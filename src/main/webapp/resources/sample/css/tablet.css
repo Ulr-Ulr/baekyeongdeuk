@@ -1,0 +1,109 @@
+@charset "UTF-8";
+
+@media all and (min-width:768px) {
+/* 공통사항시작 */
+ul {
+text-align:center;
+	
+}
+body {background:#bbb;}
+/* 공통사항끝 */
+/* 헤더영역시작 */
+.menu-toggle-btn {display:none;}
+.header .gnb {
+display:block;
+position:static;
+background:none;
+width:auto;
+float:right;/* 가로위치를 오른쪽으로 변경 */
+margin-top:10px;
+}
+.header .gnb li {
+float:left;
+border:none;
+/* width:95px; */
+}
+.header .gnb li:last-child {border-bottom:none;}
+.header .gnb li a {
+display:inline-block;/* 콘텐츠내용만큼만 자리를 차지함 */
+color:#ece6cc;
+padding-left:0px;
+margin-right:30px;
+}
+/* 헤더영역끝 */
+.header .gnb li a:hover {text-decoration:none;}
+/* 슬라이드영역 시작 */
+.carousel-item, .carousel-item img {height:900px;}
+/* 슬라이드영역 끝 */
+
+/*we are영역 시작*/
+.float-clear {clear:both;}/* clear속성은 float작동을 없애는 역할 */
+.weare-section li {
+float:left;/* 세로정렬을 가로정렬로 변경 부트스트랩의 그리드시스템 col-12(100%), col-3,col-3,col-3,col-3의 */
+width:23.046875%;/* (177/768px)*100=???% */
+margin-left:2.604166%;/* (20/768)*100=???% */
+overflow:hidden;/* 반응형list박스에서 가로크기를 벗어나는 이미지 내용은 숨김처리 */
+}
+.weare-body li img {width:100%; height:300px 100%;}
+.weare-section {margin-bottom:30px;}
+.weare-body {
+margin:0 3%;
+margin-bottom:50%;
+}/* 가운데 정렬 */
+.weare-body li:first-child {
+margin-left:0px;
+}
+/* we are영역 끝 */
+/* 워크영역 시작 */
+.work-section li {
+float:left;/* 세로배치를 가로배치로 변경 */
+width:50%;
+}
+
+
+/* 위커영역끝 */
+/* 블로그영역시작 */
+.blog-section hr {
+display:none;
+}
+.blog-section li {
+float:left;/* 가로배치가 3개 가로배치로 변함 */
+width:31%; /* (x/768px) */
+margin-left:2.6041666%;
+height:300px;
+}
+.blog-section li div {
+maximun-height:300px;
+}
+.blog-section li .preview {
+height:200px;
+overflow:hidden;
+}
+.blog-section li .info2 {
+
+	
+}
+.blog-section li:first-child {
+margin-left:0px;
+
+}
+.blog-section li:nth-child(3n+1)/*1,4,7,10,13,16...  */ {
+margin-left:0px;
+
+}
+
+/* 블로그영역 끝 */
+/*contact영역 시작*/
+.input-class, .textarea-class {
+float:left;/*세로배치를 가로배치로 변경*/
+width:49%;/*2개로나누는 가로크기를 47% 지정*/
+}
+.input-class {
+margin-right:2%;
+}
+.contactus-section form textarea {
+min-height: 120px;
+}
+/*contact영역 끝*/
+/* 태블릿용 스타일 끝 */
+}
