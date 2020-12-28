@@ -25,5 +25,22 @@ public class BoardDAOImpl implements IF_BoardDAO {
 		// sql세션템플릿 사용해서 게시물 갯수 구하기 매퍼쿼리 연결(아래)
 		return sqlSession.selectOne("boardMapper.countBoard", pageVO);
 	}
+	@Override
+	public BoardVO readBoard(Integer bno) throws Exception {
+		// 게시물 상세보기 매퍼쿼리 연결 
+		return sqlSession.selectOne("boardMapper.readBoard", bno);
+	}
+	@Override
+	public List<String> readAttach(Integer bno) throws Exception {
+		// 게시물 첨부파일 매퍼쿼리 연결
+		return sqlSession.selectList("boardMapper.readAttach",bno);
+	}
+	@Override
+	public void updateViewCount(Integer bno) throws Exception {
+		// 게시물 상세보기시 조회수 매퍼쿼리 연결
+		sqlSession.update("boardMapper.updateViewCount",bno);
+		
+	}
+	
 
 }
