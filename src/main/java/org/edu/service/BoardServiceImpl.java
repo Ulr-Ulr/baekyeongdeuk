@@ -1,0 +1,27 @@
+package org.edu.service;
+
+import java.util.List;
+
+import javax.inject.Inject;
+
+import org.edu.dao.IF_BoardDAO;
+import org.edu.vo.BoardVO;
+import org.edu.vo.PageVO;
+import org.springframework.stereotype.Service;
+
+@Service//스프링 빈으로 사용하기위해서 애노테이션 명시
+public class BoardServiceImpl implements IF_BoardService {
+	@Inject //DAO클래스를 주입받아서 사용
+	private IF_BoardDAO boardDAO;
+	@Override
+	public List<BoardVO> selectBoard(PageVO pageVO) throws Exception {
+		// DAO 클래스 사용코드(아래)
+		return boardDAO.selectBoard(pageVO);
+	}
+	@Override
+	public int countBoard(PageVO pageVO) throws Exception {
+		// DAO클래스 사용 코드
+		return boardDAO.countBoard(pageVO);
+	}
+
+}
