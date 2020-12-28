@@ -18,7 +18,7 @@ public class BoardDAOImpl implements IF_BoardDAO {
 		// sql세션 템플릿(select,update,delete같은매서드가포함)매퍼쿼리 지정(아래)
 		
 		
-		return sqlSession.selectList("BoardMapper.selectBoard", pageVO);
+		return sqlSession.selectList("boardMapper.selectBoard", pageVO);
 	}
 	@Override
 	public int countBoard(PageVO pageVO) throws Exception {
