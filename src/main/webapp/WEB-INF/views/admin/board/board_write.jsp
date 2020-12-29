@@ -44,7 +44,7 @@
                 <div class="card-body">
                   <div class="form-group">
                     <label for="user_id">title</label>
-                    <input type="text" class="form-control" name="user_id" id="user_id" placeholder="제목을 입력해 주세요." required>
+                    <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요." required>
                     <!-- 폼에서 input같은 입력태그에는 name속성이 반드시 필요, 이유는 DB에 입력할때,
                     	 값을 전송하게 되는데, 전송값을 담아두는 이름이 name가 되고, 위에서는 user_id 입니다. -->
                   </div>
@@ -99,3 +99,15 @@ $(document).ready(function () {
   bsCustomFileInput.init();
 });
 </script>
+<link rel="stylesheet" href="/resources/plugins/summernote/summernote.css">
+<script src="/resources/plugins/summernote/summernote.js"></script>
+<script>
+$(document).ready(function(){
+	$('#content').summernote({
+		height:150,
+		lang:"ko-KR",
+		placeholder:'글내용을 입력해주세요'
+	});
+});//textarea 중 content아이디영역을 섬머노트에디터로 변경처리 함수실행
+</script>
+

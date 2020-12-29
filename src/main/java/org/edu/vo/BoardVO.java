@@ -4,7 +4,7 @@ import java.util.Date;
 
 /**
  * 게시판에서 사용되는 데이터 입출력 클래스
- * @author 김일국
+ * @author Ulr
  *
  */
 public class BoardVO {
@@ -17,6 +17,8 @@ public class BoardVO {
 	private Date update_date;
 	private Integer view_count;
 	private Integer reply_count;
+	
+	private String[] save_file_names;//리스트형 첨부파일명을 배열형으로 변경할때 사용한 변수.  
 	
 	@Override
 	public String toString() {
@@ -71,6 +73,12 @@ public class BoardVO {
 	}
 	public void setReply_count(Integer reply_count) {
 		this.reply_count = reply_count;
+	}
+	public String[] getSave_file_names() {
+		return save_file_names;
+	}
+	public void setSave_file_names(String[] save_file_names) {
+		this.save_file_names = save_file_names;
 	}
 	
 }
