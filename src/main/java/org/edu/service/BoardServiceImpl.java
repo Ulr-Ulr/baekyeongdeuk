@@ -51,9 +51,16 @@ public class BoardServiceImpl implements IF_BoardService {
 	}
 
 	@Override
-	public void deleteBOard(Integer bno) throws Exception {
+	public void deleteBoard(Integer bno) throws Exception {
 		// 게시물삭제 DAO연결(아래)
 		boardDAO.deleteBoard(bno);
+		
+	}
+
+	@Override
+	public void updateBoard(BoardVO boardVO) throws Exception {
+		// 게시물 수정DAO연결
+		boardDAO.updateBoard(boardVO);
 		
 	}
 
