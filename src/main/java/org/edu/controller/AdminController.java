@@ -10,6 +10,7 @@ import javax.inject.Inject;
 
 import org.edu.service.IF_BoardService;
 import org.edu.service.IF_MemberService;
+import org.edu.util.CommonController;
 import org.edu.util.SecurityCode;
 import org.edu.vo.BoardVO;
 import org.edu.vo.MemberVO;
@@ -28,6 +29,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class AdminController {
 	//@Inject == @Autowired 의존성 주입방식 DI(Dependency Inject)으로 
 	//외부 라이브러리 = 컴포넌트 = 모듈  = 실행클래스 = 인스턴스 갖다쓰기(아래)
+	@Inject
+	CommonController commonController;
+	
 	@Inject
 	SecurityCode securityCode;
 	
@@ -71,7 +75,10 @@ public class AdminController {
 		if(file.getOriginalFilename() == "") {//첨부파일이 공백이면
 			
 		}else {//첨부파일이 공백이 아니면
-		
+		String[] save_file_names = commonController.fileUpload(file);
+		boardVO.setSave_file_names(save_file_names);
+		String[] real_file_names = new String[] {file.getOriginalFilename()};//"실제한글파일명.jpg"
+		boardVO.setReal_file_names(real_file_names);
 				}
 		boardService.insertBoard(boardVO);
 		//첨부파일 등록 미처리1 - 추가예정:등록순서, 부모부터 등록 후 자식이 생성이 됩니다.
