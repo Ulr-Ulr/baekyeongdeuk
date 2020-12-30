@@ -68,6 +68,11 @@ public class AdminController {
 	public String board_write(RedirectAttributes rdat,MultipartFile file, BoardVO boardVO) throws Exception {
 		//post받은 boardVO내용을 DB서비스에 입력하면 됩니다.
 		//dB에 입력후 새로고침명령으로 게시물 테러를 당하지 않으려면, redirect로 이동처리 합니다.(아래)
+		if(file.getOriginalFilename() == "") {//첨부파일이 공백이면
+			
+		}else {//첨부파일이 공백이 아니면
+		
+				}
 		boardService.insertBoard(boardVO);
 		//첨부파일 등록 미처리1 - 추가예정:등록순서, 부모부터 등록 후 자식이 생성이 됩니다.
 		rdat.addFlashAttribute("msg", "저장");
