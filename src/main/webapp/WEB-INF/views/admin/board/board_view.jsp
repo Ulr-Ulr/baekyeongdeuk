@@ -56,18 +56,18 @@
                 <c:out value="${boardVO.writer}"></c:out>
                 </p>
                 <c:if test="${boardVO.save_file_names[0] != null}">
-                <hr>
-                <strong><i class="far fa-save mr-1"></i> 첨부파일</strong>
-                <p class="text-muted">
-                <a href="#">
-                ${boardVO.save_file_names[0]}-파일다운로드
-                </a></p>                            
-               </c:if>
-                
+                	<hr>
+	                <strong><i class="far fa-save mr-1"></i> 첨부파일</strong>
+	                <p class="text-muted">
+	                <a href="/download?save_file_name=${boardVO.save_file_names[0]}&real_file_name=${boardVO.real_file_names[0]}">
+	                ${boardVO.real_file_names[0]}-파일다운로드
+	                </a>
+	                </p>
+                </c:if>
               </div>
               <!-- /.card-body -->
             </div>
-            
+          
           <!-- 버튼영역 시작 -->
           <div class="card-body">
             	<a href="/admin/board/board_list?page=${pageVO.page}" class="btn btn-primary float-right mr-1">LIST ALL</a>
@@ -253,20 +253,19 @@ $(document).ready(function() {
     </div>
   </div>
 </div>
-
+<!-- 게시물 삭제 버튼 클릭시 액션(아래) -->
 <form name="action_form">
-<input type="hidden" name="bno" value="${boardVO.bno}">
-<input type="hidden" name="page" value="${pageVO.page}">
-	
+	<input type="hidden" name="bno" value="${boardVO.bno}">
+	<input type="hidden" name="page" value="${pageVO.page}">
 </form>
 <script>
 $(document).ready(function(){
 	$("#btn_board_delete").on("click",function(){
 		//alert("디버그");
-		if(confirm("정말로 삭제하시겠습니까?")) {
-			$("form[name='action_form']").attr("method","post");
-    		$('form[name="action_form"]').attr("action","/admin/board/board_delete");
-    		$('form[name="action_form"]').submit();            			
+		if(confirm("정말로 삭제 하시겠습니까?")) {
+			$('form[name="action_form"]').attr("method","post");
+			$('form[name="action_form"]').attr("action","/admin/board/board_delete");
+			$('form[name="action_form"]').submit();
 		}
 	});
 });

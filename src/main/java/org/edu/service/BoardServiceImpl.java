@@ -1,5 +1,6 @@
 package org.edu.service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -38,44 +39,40 @@ public class BoardServiceImpl implements IF_BoardService {
 	}
 
 	@Override
-	public List<String> readAttach(Integer bno) throws Exception {
+	public List<HashMap<String,Object>> readAttach(Integer bno) throws Exception {
 		// bno번호에 해당하는 첨부파일 조회쿼리 DAO연결(아래)
 		return boardDAO.readAttach(bno);
 	}
 
+	@Transactional
 	@Override
 	public void insertBoard(BoardVO boardVO) throws Exception {
 		// 게시물 등록 DAO연결(아래)
-				boardDAO.insertBoard(boardVO);
+		boardDAO.insertBoard(boardVO);
 		// 첨부파일 등록 DAO연결(아래)
-				String[] save_file_names = boardVO.getSave_file_names();
-				String[] real_file_names = boardVO.getReal_file_names();
-				
-				int index = 0;
-				String real_file_name ="";
-				if(save_file_names ==null ) {return;}
-				for(String save_file_name:save_file_names) {
-					real_file_name = real_file_names[index];
-					boardDAO.insertAttach(save_file_name, real_file_name);
-					index = index + 1;
-				}
+		String[] save_file_names = boardVO.getSave_file_names();
+		String[] real_file_names = boardVO.getReal_file_names();
+		//첨부파일이 여러개일때 상황 대비
+		int index = 0;
+		String real_file_name = "";
+		if(save_file_names == null) { return; }
+		for(String save_file_name:save_file_names) {//첨부파일 1개일때는 1번만 반복됩니다.
+			real_file_name = real_file_names[index];
+			boardDAO.insertAttach(save_file_name, real_file_name);
+			index = index + 1;
+		}
 	}
 
 	@Override
 	public void deleteBoard(Integer bno) throws Exception {
-		// 게시물삭제 DAO연결(아래)
+		// 게시물 삭제 DAO연결(아래)
 		boardDAO.deleteBoard(bno);
-		
 	}
 
 	@Override
 	public void updateBoard(BoardVO boardVO) throws Exception {
-		// 게시물 수정DAO연결
+		// 게시물 수정 DAO연결(아래)
 		boardDAO.updateBoard(boardVO);
-		
 	}
-
-
-	
 
 }
