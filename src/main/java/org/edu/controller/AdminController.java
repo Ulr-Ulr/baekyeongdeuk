@@ -1,5 +1,6 @@
 package org.edu.controller;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -45,8 +46,17 @@ public class AdminController {
 	//GET은 URL전송방식(아무데서나 브라우저주소에 적으면 실행됨), POST는 폼전송방식(해당페이지에서만 작동가능)
 	@RequestMapping(value="/admin/board/board_delete",method=RequestMethod.POST)
 	public String board_delete(RedirectAttributes rdat,PageVO pageVO, @RequestParam("bno") Integer bno) throws Exception {
-		//첨부파일 삭제 미처리3 -추가예정:삭제할때 순서, 자식부터 삭제 후 부모가 삭제됩니다.
+		//기존등록된 첨부파일 폴더에서 삭제할 UUID파일명 구하기(아래)
+		List<HashMap<String,Object>> delFiles = boardService.readAttach(bno);
 		boardService.deleteBoard(bno);
+		//첨부파일 삭제:DB부터 먼저삭제 후 폴더에서 첨부파일 삭제
+		for(HashMap<String,Object> file_name:delFiles) {
+			//파일 삭제 로직(아래 File클래스(폴더경로,파일명)
+			File target = new File(commonController.getUploadPath(), (String) file_name.get("save_file_name"));
+			if(target.exists()) {
+				target.delete();//실제 지워짐.
+			}
+		}
 		rdat.addFlashAttribute("msg", "삭제");
 		return "redirect:/admin/board/board_list?page=" + pageVO.getPage();//삭제할 당시의 현재페이지를 가져가서 리스트로보줌
 	}
@@ -59,8 +69,24 @@ public class AdminController {
 	}
 	@RequestMapping(value="/admin/board/board_update",method=RequestMethod.POST)
 	public String board_update(RedirectAttributes rdat,MultipartFile file, BoardVO boardVO, PageVO pageVO) throws Exception {
-		boardService.updateBoard(boardVO);
-		//첨부파일 수정 미처리2 - 추가예정:수정할때 순서, 부모부터 수정 후 자식이 수정됩니다.
+		//기존 등록된 첨부파일 목록 구하기
+		List<HashMap<String,Object>> delFiles = boardService.readAttach(boardVO.getBno());
+		//첨부파일 수정: 기존첨부파일 삭제 후 신규파일 업로드
+		if(file.getOriginalFilename() != "") {//첨부파일명이 있으면
+			//기존파일 폴더에서 삭제 처리
+			for(HashMap<String,Object> file_name:delFiles) {
+				File target = new File(commonController.getUploadPath(), (String) file_name.get("save_file_name"));
+				if(target.exists()) {
+					target.delete();//폴더에서 기존첨부파일 지우기
+				}
+			}
+			//신규파일 폴더에 업로드 처리
+			String[] save_file_names = commonController.fileUpload(file);//폴더에 업로드저장완료
+			boardVO.setSave_file_names(save_file_names);//UUID로 생성된 유니크한 파일명
+			String[] real_file_names = new String[] {file.getOriginalFilename()};//"한글파일명.jpg"
+			boardVO.setReal_file_names(real_file_names);
+		}
+		boardService.updateBoard(boardVO);//DB에서 업데이트
 		rdat.addFlashAttribute("msg", "수정");
 		return "redirect:/admin/board/board_view?page="+pageVO.getPage()+"&bno="+boardVO.getBno();
 	}
