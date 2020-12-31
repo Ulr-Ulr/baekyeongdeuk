@@ -2,14 +2,17 @@ package org.edu.util;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.UUID;
 
 import javax.annotation.Resource;
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 
 import org.edu.service.IF_MemberService;
 import org.edu.vo.MemberVO;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,6 +58,23 @@ public class CommonController {
 	public void setUploadPath(String uploadPath) {
 		this.uploadPath = uploadPath;
 	}
+	
+	//파일 다운로드 구현메서드
+	@RequestMapping(value="/download", method=RequestMethod.GET)
+	@ResponseBody//이 애노테이션은 지정된 메서드는 페이지 이동처리가 아니고 RestAPI처럼 구현결과내용을 전송받습니다.
+	public FileSystemResource download(
+			@RequestParam("save_file_name") String save_file_name,
+			@RequestParam("real_file_name") String real_file_name,
+			HttpServletResponse response
+			) throws Exception {//파일시스템리소스로 현재페이지에서 반환받음.
+		File file = new File(uploadPath + "/" + save_file_name);//다운받은 경로 지정
+		response.setContentType("application/download; utf-8");//파일내용중 한글이 깨지는것을 방지
+		real_file_name = URLEncoder.encode(real_file_name, "UTF-8").replaceAll("\\+", "%20");
+		//위에 URL엔코더는 파일명이 한글(일본어,베트남어)일때 깨지는것을 방지
+		response.setHeader("Content-Disposition", "attachment; filename=" + real_file_name);
+		return new FileSystemResource(file);//실제 다운로드 시작
+	}
+	
 	//파일 업로드= xml에서 지정한 폴더에 실제파일 저장을 구현한 메서드(아래)
 	public String[] fileUpload(MultipartFile file) throws IOException {
 		String realFileName = file.getOriginalFilename();//jsp에서 전송한 파일명->확장자를 구하려고 사용
