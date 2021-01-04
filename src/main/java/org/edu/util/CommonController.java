@@ -10,6 +10,7 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
+import org.edu.dao.IF_BoardDAO;
 import org.edu.service.IF_MemberService;
 import org.edu.vo.MemberVO;
 import org.springframework.core.io.FileSystemResource;
@@ -30,9 +31,12 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 public class CommonController {
 	
+	
 	@Inject
 	IF_MemberService memberService;
 	
+	@Inject
+	IF_BoardDAO boardDAO;
 	/**
 	 * 첨부파일의 확장자를 비교해서 이미지인지, 엑셀,한글과같은 일반파일인지 확인하는 List객체변수
 	 * 사용용도1: 게시물상세보기 첨부파일이 이미지면 미리보기이미지가 보이도록, 이미지가 아니면, 다운로드링크만 보이도록
@@ -112,6 +116,24 @@ public class CommonController {
 		}
 		return result;//결과값 0, 1, 에러메세지
 	}
+	@RequestMapping(value="/file_delete",method=RequestMethod.POST)
+	@ResponseBody//메서드 응답을 내용만 반환받겠다고 명시
+	public String file_delete_(@RequestParam("save_file_name") String save_file_name) {
+		String result = "";
+		try {
+			boardDAO.deleteAttach(save_file_name);
+			File target = new File(uploadPath, save_file_name);
+			if(target.exists()) {
+				target.delete();//폴더에서 기존첨부파일 지우기
+			}
+			result = "success";
+		} catch (Exception e) {
+			
+			result = "fail : "+ e.toString();
+		}
+		return result;
+	}
+	
 
 	public ArrayList<String> getCheckImgArray() {
 		return checkImgArray;
