@@ -73,9 +73,9 @@
                   </thead>
                   <tbody>
                   <!-- jstl core를 갖다쓰는 이유는 향상된 for반복문을 사용하기 위해서 지정(아래) -->
-                  <c:forEach items="${board_list}" var="boardVO">
+                  <c:forEach items="${board_list}" var="boardVO" varStatus="status">
                   	<tr>
-                     <td>
+                      <td>
                       <!-- ${boardVO.bno} 대신에 보기편한 넘버링으로 변환(아래 계산식 사용) -->
                       <!-- 전체게시물-(현재페이지x1페이지당보여줄개수)+1페이지당보여줄개수-현재인덱스값 -->
                       ${pageVO.totalCount-(pageVO.page*pageVO.queryPerPageNum)+pageVO.queryPerPageNum-status.index}
