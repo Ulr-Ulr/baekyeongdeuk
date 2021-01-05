@@ -215,8 +215,8 @@ $(document).ready(function(){
 	$("#btn_reply_list").on("click", function(){
 		//alert('디버그');
 		$.ajax({ //$.getJSON 으로 대체 해도 됩니다.
-			type:"get",
-			url:"/reply/reply_list/116",//116게시물번호에 대한 댓글목록을 가져오는 URL
+			type:"POST",
+			url:"/reply/reply_list/2",//2게시물번호에 대한 댓글목록을 가져오는 URL
 			dataType:"json",
 			success:function(result) {//result에는 댓글 목록을 json데이터로 받음.
 				//빵틀에 result데이터를 바인딩해서 출력합니다.
