@@ -64,12 +64,12 @@ $(document).ready(function(){
 <nav class="gnb"><!-- gnb(GlobalNavigation) : 글로벌네비게이션==전체영역메뉴 -->
 <!-- html5 시만텍 웹 = 의미가 있는 태그를 사용하게 해서 AI가 인식하게 됩니다. -->
 <ul>
+<li><a href="/sample">SampleHOME</a></li>
+<li><a href="/sample/weare">WE ARE</a></li>
+<li><a href="/sample/work">WORK</a></li>
+<li><a href="/sample/blog">BLOG</a></li>
+<li><a href="/sample/contactus">CONTACT US</a></li>
 <li><a href="/">HOME</a></li>
-<li><a href="weare">WE ARE</a></li>
-<li><a href="work">WORK</a></li>
-<li><a href="blog">BLOG</a></li>
-<li><a href="contactus">CONTACT US</a></li>
-<li><a href="/admin">AdminLTE</a></li>
 </ul>
 </nav>
 <!-- 상단 로고와 햄버거 메뉴영역 끝 -->
