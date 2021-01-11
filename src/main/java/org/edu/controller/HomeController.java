@@ -21,6 +21,12 @@ public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
 	
+	//전역 홈페이지에서 스프링 진입전 발생하는 에러 페이지 처리
+	@RequestMapping(value="/home/error/404",method=RequestMethod.GET)
+	public String error404() throws Exception {
+		return "home/error/404";
+	}
+	
 	//사용자 홈페이지 게시판 상세보기 매핑
 	@RequestMapping(value="/home/board/board_view",method=RequestMethod.GET)
 	public String board_view() throws Exception {
@@ -31,10 +37,10 @@ public class HomeController {
 	//사용자 홈페이지 게시판 쓰기 매핑(POST) 오버로드(매개변수의 개수또는 타입이 틀린)메서드이용
 	//jsp에서 board_write메서드를 호출합니다 -> 호출할때 폼의 필드값을 컨트롤러로 보냅니다.
 	//컨트롤러에서 받을때 사용하는 매개변수 BoardVO boardVO입니다.
-	//위에서 받은 boardVO 를 DAO에서 받아서 DB테이블에 쿼리로 입력합니다.
+	//위에서 받은 boardVO 를 DAO에서 받아서 DB테이블에 쿼리명령으로 입력합니다.
 	@RequestMapping(value="/home/board/board_write",method=RequestMethod.POST)
 	public String board_write(BoardVO boardVO) throws Exception {
-		
+		//위에서 받은 boardVO를 서비스로 보내기.
 		return "redirect:/home/board/board_view";
 	}
 	//사용자 홈페이지 게시판 쓰기 매핑(GET)
