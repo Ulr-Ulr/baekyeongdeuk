@@ -28,7 +28,7 @@
     float: right;
     width: 60%;
     padding-right: 20px;
-    background: none;
+    background: 0;
   }
   .closePop {
     display: none;

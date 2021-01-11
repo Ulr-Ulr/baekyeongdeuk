@@ -18,7 +18,6 @@
 <script src="/resources/home/js/rollmain.js"></script>
 <!-- //슬라이드용 --> 
 <style>
-
 </style>
 <script>
 $(document).ready(function() {
@@ -34,7 +33,7 @@ $(document).ready(function() {
 	<header id="header">
 		<div class="header_area box_inner clear">
 			<!-- 상단로고영역 -->
-			<h1><a href="index.html">스프링 in 자바</a></h1>
+			<h1><a href="/">스프링 in 자바</a></h1>
 			<!-- //상단로고영역 -->
 			
 			<!-- 상단메뉴메뉴영역 -->
@@ -58,11 +57,11 @@ $(document).ready(function() {
                             </ul>
                         </div>
 					</li>
-					<li><a href="board_list.html" class="openAll2">커뮤니티</a>
+					<li><a href="/home/board/board_list" class="openAll2">커뮤니티</a>
 				        <div class="gnb_depth gnb_depth2_2">
                             <ul class="submenu_list">
-                                <li><a href="board_list.html">공지사항</a></li>
-                                <li><a href="board_list.html">겔러리게시판</a></li>
+                                <li><a href="/home/board/board_list">공지사항</a></li>
+                                <li><a href="/home/board/board_list">겔러리게시판</a></li>
                             </ul>
                         </div>
 					</li>

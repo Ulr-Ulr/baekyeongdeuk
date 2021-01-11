@@ -4,6 +4,7 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import org.edu.vo.BoardVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -19,25 +20,64 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	
+	//사용자 홈페이지 게시판 상세보기 매핑
+	@RequestMapping(value="/home/board/board_view",method=RequestMethod.GET)
+	public String board_view() throws Exception {
+		
+		return "home/board/board_view";
+	}
+	
+	//사용자 홈페이지 게시판 쓰기 매핑(POST) 오버로드(매개변수의 개수또는 타입이 틀린)메서드이용
+	//jsp에서 board_write메서드를 호출합니다 -> 호출할때 폼의 필드값을 컨트롤러로 보냅니다.
+	//컨트롤러에서 받을때 사용하는 매개변수 BoardVO boardVO입니다.
+	//위에서 받은 boardVO 를 DAO에서 받아서 DB테이블에 쿼리로 입력합니다.
+	@RequestMapping(value="/home/board/board_write",method=RequestMethod.POST)
+	public String board_write(BoardVO boardVO) throws Exception {
+		
+		return "redirect:/home/board/board_view";
+	}
+	//사용자 홈페이지 게시판 쓰기 매핑(GET)
+	@RequestMapping(value="/home/board/board_write",method=RequestMethod.GET)
+	public String board_write() throws Exception {
+		
+		return "home/board/board_write";
+	}
+	
+	//사용자 홈페이지 게시판 리스트 매핑
+	@RequestMapping(value="/home/board/board_list",method=RequestMethod.GET)
+	public String board_list() throws Exception {
+		
+		return "home/board/board_list";
+	}
+	
 	//사용자 홈페이지 회원 마이페이지 접근 매핑
-	@RequestMapping(value="/member/mypage", method=RequestMethod.GET)
-	public String mypage() throws Exception {
+	@RequestMapping(value="/member/mypage",method=RequestMethod.GET)
+	public String mypage() throws Exception{
+		
 		return "home/member/mypage";
 	}
-	//사용자 홈페이지 회원가입 접근 맵핑
+	
+	//사용자 홈페이지 회원가입 접근 매핑
 	@RequestMapping(value="/join",method=RequestMethod.GET)
-	public String join() throws Exception {
+	public String join() throws Exception{
+		
 		return "home/join";
 	}
-	//사용자 홈페이지 로그인 접근 맵핑
+	
+	//사용자 홈페이지 로그인 접근 매핑
 	@RequestMapping(value="/login",method=RequestMethod.GET)
-	public String login() throws Exception {
+	public String login() throws Exception{
+		
 		return "home/login";
 	}
+	//사용자 홈페이지 루트(최상위) 접근 매핑
 	@RequestMapping(value="/",method=RequestMethod.GET)
 	public String home() throws Exception{
+		
 		return "home/home";
 	}
+	
 	/**
 	 * 외부(웹브라우저)에서 루트 / 라는 이름으로 요청 받으면, home.jsp파일에 화면출력(렌더링)이 됩니다.(아래)
 	 * HomeController.java 를 저장하면, 이클립스에서는 HomeController.class 실행가능한 파일을 생성
