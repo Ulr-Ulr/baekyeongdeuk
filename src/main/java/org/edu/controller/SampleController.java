@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class SampleController {
-
 	/**
 	 * 외부(웹브라우저)에서 루트 / 라는 이름으로 요청 받으면, home.jsp파일에 화면출력(렌더링)이 됩니다.(아래)
 	 * HomeController.java 를 저장하면, 이클립스에서는 HomeController.class 실행가능한 파일을 생성
@@ -48,5 +47,4 @@ public class SampleController {
 		// 접두사(prefix), 접미사(suffix) index(접두사-파일명).jsp(접미사-확장자)
 		return "sample/index";//접두사만 반환값으로 넣습니다. 상대경로.
 	}
-	
 }
