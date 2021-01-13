@@ -1,6 +1,8 @@
 package org.edu.util;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.ArrayList;
@@ -10,11 +12,18 @@ import javax.annotation.Resource;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.io.FilenameUtils;
 import org.edu.dao.IF_BoardDAO;
 import org.edu.service.IF_MemberService;
+import org.edu.vo.BoardVO;
 import org.edu.vo.MemberVO;
 import org.springframework.core.io.FileSystemResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,18 +34,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 /**
  * CommonController 공통사용(Admin,Home) 컨트롤러
- * @author 배경득
+ * @author 김일국
  *
  */
 @Controller
 public class CommonController {
 	
-	
 	@Inject
 	IF_MemberService memberService;
 	
 	@Inject
-	IF_BoardDAO boardDAO;
+	IF_BoardDAO boardDAO;//첨부파일을 개별 삭제하기 위해서 인젝트 합니다.
+	
 	/**
 	 * 첨부파일의 확장자를 비교해서 이미지인지, 엑셀,한글과같은 일반파일인지 확인하는 List객체변수
 	 * 사용용도1: 게시물상세보기 첨부파일이 이미지면 미리보기이미지가 보이도록, 이미지가 아니면, 다운로드링크만 보이도록
@@ -64,6 +73,47 @@ public class CommonController {
 
 	public void setUploadPath(String uploadPath) {
 		this.uploadPath = uploadPath;
+	}
+	
+	/**
+	 * 게시물 첨부파일 이미지보기 메서드 구현(크롬에서는 문제없고, IE에서 스프링시큐리티적용 후 IE에서 지원가능)
+	 * 에러메시지 처리: getOutputStream() has already been called for this response
+	 * @throws IOException 
+	 */
+	@RequestMapping(value = "/image_preview", method = RequestMethod.GET)//, produces = MediaType.IMAGE_JPEG_VALUE
+	@ResponseBody
+	public ResponseEntity<byte[]> getImageAsByteArray(@RequestParam("save_file_name") String save_file_name, HttpServletResponse response) throws IOException {
+		FileInputStream fis = null;
+		ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		fis = new FileInputStream(uploadPath + "/" + save_file_name);//업로드된 이미지를 fis변수 저장
+		int readCount = 0;
+		byte[] buffer = new byte[1024];//1k바이트 단위로 읽어 들이기 위해서
+		byte[] fileArray = null;
+	while((readCount = fis.read(buffer)) != -1){
+		baos.write(buffer,0,readCount);
+	}
+	fileArray = baos.toByteArray();//바이트 단위로 되있는 변수에 아웃풋스트림내용을 저장해서 return 으로 반환
+	fis.close();//고전 자바프로그램에서는 메모리 관리를 위해서 fis파일인풋스트림변수 생성후 소멸시키는 작업이 필수
+	baos.close();//스프링프레임워크 기반의 프로그램구조에서는 close와 같은 메모리관리가 할 필요없습니다. = 스프링에는 가비지컬렉트기능이 내장.
+	
+	final HttpHeaders headers = new HttpHeaders();
+	String ext = FilenameUtils.getExtension(save_file_name);//파일 확장자 구하기
+	switch(ext) {
+	case "png":
+		headers.setContentType(MediaType.IMAGE_PNG);break;
+	case "jpg":
+		headers.setContentType(MediaType.IMAGE_JPEG);break;
+	case "gif":
+		headers.setContentType(MediaType.IMAGE_GIF);break;
+	case "jpeg":
+		headers.setContentType(MediaType.IMAGE_JPEG);break;
+	case "bmp":
+		headers.setContentType(MediaType.parseMediaType("image/bmp"));
+		break;
+
+	}
+
+	return new ResponseEntity<byte[]>(fileArray, headers, HttpStatus.CREATED);
 	}
 	
 	//파일 다운로드 구현한 메서드(아래)
@@ -95,7 +145,7 @@ public class CommonController {
 		byte[] fileData = file.getBytes();//jsp폼에서 전송된 파일이 fileData변수(메모리)에 저장됩니다.
 		File target = new File(uploadPath, saveFileName);//파일저장 하기 바로전 설정저장.
 		FileCopyUtils.copy(fileData, target);//실제로 target폴더에 파일로 저장되는 메서드=업로드 종료
-		return saveFileName;//1개 이상의 파일 업로드시 저장된 파일명을 배열로 저장한 변수
+		return saveFileName;//copy로 업로드 이후에 저장된 real_file_name 스트링문자열값 1개를 반환합니다.
 	}
 
 	//REST-API서비스로 사용할때 @ResponseBody애노테이션으로 json|텍스트데이터를 반환함(아래)
@@ -116,24 +166,25 @@ public class CommonController {
 		}
 		return result;//결과값 0, 1, 에러메세지
 	}
+	
+	@Transactional
 	@RequestMapping(value="/file_delete",method=RequestMethod.POST)
-	@ResponseBody//메서드 응답을 내용만 반환받겠다고 명시
-	public String file_delete_(@RequestParam("save_file_name") String save_file_name) {
+	@ResponseBody //메서드 응답을 내용만 반환 받겠다고 명시 RestAPI 
+	public String file_delete(@RequestParam("save_file_name") String save_file_name) {
 		String result = "";
 		try {
-			boardDAO.deleteAttach(save_file_name);
+			boardDAO.deleteAttach(save_file_name);//DB에서만 지워짐.
+			//실제 폴더에서 파일도 지우기(아래)
 			File target = new File(uploadPath, save_file_name);
 			if(target.exists()) {
 				target.delete();//폴더에서 기존첨부파일 지우기
 			}
 			result = "success";
 		} catch (Exception e) {
-			
-			result = "fail : "+ e.toString();
+			result = "fail : " + e.toString();
 		}
 		return result;
 	}
-	
 
 	public ArrayList<String> getCheckImgArray() {
 		return checkImgArray;
