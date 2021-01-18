@@ -76,10 +76,23 @@ public class HomeController {
 	@RequestMapping(value="/home/board/board_update",method=RequestMethod.GET)
 	public String board_update (Model model, @ModelAttribute("pageVO") PageVO pageVO, @RequestParam("bno") Integer bno) throws Exception {
 		BoardVO boardVO = boardService.readBoard(bno);
-		//콘텐츠 내용 시큐어 코딩 처리
-		String xssData = securityCode.unscript(boardVO.getContent());
-		boardVO.setContent(xssData);
+		//첨부파일처리
+		List<AttachVO> files = boardService.readAttach(bno);
+		//아래변수 List<AttachVO>세로배치를 가로배치로 변경할때 필요한 변수
+		String[] save_file_names = new String[files.size()];
+		String[] real_file_names = new String[files.size()];
+		int cnt=0;
+		//세로데이터를 가로데이터로 변경로직
+		for(AttachVO file_name:files) {
+			save_file_names[cnt] = file_name.getSave_file_name();
+			real_file_names[cnt] = file_name.getReal_file_name();
+			cnt +=1;
+		}
+		boardVO.setSave_file_names(save_file_names);
+		boardVO.setReal_file_names(real_file_names);
+		
 		model.addAttribute("boardVO", boardVO);
+		
 		return "home/board/board_update";
 	}
 	//사용자 홈페이지 게시판 쓰기 매핑(POST) 오버로드(매개변수의 개수또는 타입이 틀린)메서드이용
