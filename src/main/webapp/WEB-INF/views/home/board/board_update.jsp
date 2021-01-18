@@ -89,30 +89,7 @@
 		                <div style="height:10px;"></div>
 		                </div>
 	                    </c:forEach>
-		                     <script>
-			                $(document).ready(function(){			                	
-			                	$(".btn_file_delete").on("click",function(){
-			                		if(confirm("선택한 첨부파일을 정말로 삭제 하시겠습니까?")){
-			                			var click_btn = $(this);
-			                			var save_file_name = click_btn.parent().find("input[name=save_file_name]").val();
-				                		//alert("디버그"+ save_file_name);
-				                		$.ajax({
-				                			type:"post",
-				                			url:"/file_delete?save_file_name="+save_file_name,
-				                			dataType:"text",
-				                			success:function(result){
-				                				if(result=="success") {
-				                					click_btn.parent().find(".div_file").remove;
-				                				}
-				                			},
-				                			error:function(result){
-				                				alert("RestAPI서버가 작동하지 않습니다.")
-				                			}
-				                		});
-				                	}
-			                	});
-			                });
-			                </script>
+		                   
 		                </li>
 					</ul>
 					<p class="btn_line">
@@ -159,5 +136,29 @@
 		});
 	});//textarea 중 content아이디영역을 섬머노트에디터로 변경처리 함수실행
 	</script>
+	<script>
+	  $(document).ready(function(){			                	
+	  	$(".btn_file_delete").on("click",function(){
+	  		if(confirm("선택한 첨부파일을 정말로 삭제 하시겠습니까?")){
+	  			var click_btn = $(this);
+	  			var save_file_name = click_btn.parent().find("input[name=save_file_name]").val();
+	   		//alert("디버그"+ save_file_name);
+	   		$.ajax({
+	   			type:"post",
+	   			url:"/file_delete?save_file_name="+save_file_name,
+	   			dataType:"text",
+	   			success:function(result){
+	   				if(result=="success") {
+	   					click_btn.parents(".div_file").remove;
+	   				}
+	   			},
+	   			error:function(result){
+	   				alert("RestAPI서버가 작동하지 않습니다.")
+	   			}
+	   		});
+	   	}
+	  	});
+	  });
+	</script>   
 	
 <%@ include file="../include/footer.jsp" %>

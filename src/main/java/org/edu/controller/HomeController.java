@@ -73,6 +73,25 @@ public class HomeController {
 		model.addAttribute("checkImagArry", commonController.getCheckImgArray());
 		return "home/board/board_view";
 	}
+	@RequestMapping(value="/home/board/board_update", method=RequestMethod.POST)
+	public String board_update(RedirectAttributes rdat, @RequestParam("file") MultipartFile[] files, BoardVO boardVO, PageVO pageVO) throws Exception {
+		List<AttachVO> delFiles = boardService.readAttach(boardVO.getBno());
+		String[] save_file_names = new String[files.length];
+		String[] real_file_names = new String[files.length];
+		int cnt = 0;
+		for(MultipartFile file:files) {
+			if(file.getOriginalFilename() !="") {
+				int index = 0;
+				for(AttachVO file_name:delFiles) {
+					save_file_names[index] = file_name.getSave_file_name();
+					real_file_names[index] = file_name.getReal_file_name();
+					index +=1;
+				}
+			}
+		}
+		return "redurect:/home/board/board_view?bno="+boardVO.getBno()+"&page="+pageVO.getPage();
+	}
+	
 	@RequestMapping(value="/home/board/board_update",method=RequestMethod.GET)
 	public String board_update (Model model, @ModelAttribute("pageVO") PageVO pageVO, @RequestParam("bno") Integer bno) throws Exception {
 		BoardVO boardVO = boardService.readBoard(bno);
