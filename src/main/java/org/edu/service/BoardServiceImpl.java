@@ -15,8 +15,9 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service //스프링빈으로 사용하기 위해서 애노테이션 명시
 public class BoardServiceImpl implements IF_BoardService {
-	@Inject//댓글DAO클래스 주입
-	private IF_ReplyDAO replyDAO;
+
+	@Inject //댓글 DAO클래스 주입
+	private IF_ReplyDAO replyDAO; 
 	
 	@Inject //DAO클래스를 주입받아서 사용변수 생성
 	private IF_BoardDAO boardDAO;
@@ -47,12 +48,13 @@ public class BoardServiceImpl implements IF_BoardService {
 		// bno번호에 해당하는 첨부파일 조회쿼리 DAO연결(아래)
 		return boardDAO.readAttach(bno);
 	}
+	
 	@Override
 	public List<HashMap<String,Object>> readAttach_noUse(Integer bno) throws Exception {
 		// bno번호에 해당하는 첨부파일 조회쿼리 DAO연결(아래)
 		return boardDAO.readAttach_noUse(bno);
 	}
-	
+
 	@Transactional
 	@Override
 	public void insertBoard(BoardVO boardVO) throws Exception {
@@ -96,11 +98,12 @@ public class BoardServiceImpl implements IF_BoardService {
 		String real_file_name = "";
 		if(save_file_names == null) { return; }
 		for(String save_file_name:save_file_names) {//첨부파일 개수 만큼 반복됩니다.
+			//System.out.println("디버그 : "+index+"번째 실행" + save_file_names[index]);
 			if(save_file_name != null) {
 				real_file_name = real_file_names[index];
 				boardDAO.updateAttach(save_file_name, real_file_name, bno);
-				index = index + 1;
 			}
+			index = index + 1;
 		}
 	}
 

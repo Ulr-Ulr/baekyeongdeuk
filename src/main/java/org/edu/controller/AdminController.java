@@ -65,11 +65,14 @@ public class AdminController {
 			}
 		}
 		/*
-		 * for(HashMap<String,Object> file_name:delFiles_noUse) { //파일 삭제 로직(아래
-		 * File클래스(폴더경로,파일명) File target = new File(commonController.getUploadPath(),
-		 * (String) file_name.get("save_file_name")); if(target.exists()) {
-		 * target.delete();//실제 파일 지워짐. } }
-		 */
+		for(HashMap<String,Object> file_name:delFiles_noUse) {
+			//파일 삭제 로직(아래 File클래스(폴더경로,파일명)
+			File target = new File(commonController.getUploadPath(), (String) file_name.get("save_file_name"));
+			if(target.exists()) {
+				target.delete();//실제 파일 지워짐.
+			}
+		}
+		*/
 		rdat.addFlashAttribute("msg", "삭제");
 		return "redirect:/admin/board/board_list?page=" + pageVO.getPage();//삭제할 당시의 현재페이지를 가져가서 리스트로보줌
 	}
@@ -77,17 +80,23 @@ public class AdminController {
 	@RequestMapping(value="/admin/board/board_update",method=RequestMethod.GET)
 	public String board_update(@RequestParam("bno") Integer bno,@ModelAttribute("pageVO") PageVO pageVO,Model model) throws Exception {
 		BoardVO boardVO = boardService.readBoard(bno);
-		
 		List<AttachVO> files = boardService.readAttach(bno);
+		//List<HashMap<String, Object>> files_noUse = boardService.readAttach_noUse(bno);
 		String[] save_file_names = new String[files.size()];
 		String[] real_file_names = new String[files.size()];
 		int cnt = 0;
-		
 		for(AttachVO file_name:files) {//세로데이터를 가로데이터로 변경하는 로직
-			save_file_names[cnt] = file_name.getSave_file_name();//형변환 cast
+			save_file_names[cnt] = file_name.getSave_file_name();
 			real_file_names[cnt] = file_name.getReal_file_name();
 			cnt = cnt + 1;
 		}
+		/*
+		for(HashMap<String, Object> file_name:files_noUse) {//세로데이터를 가로데이터로 변경하는 로직
+			save_file_names[cnt] = (String) file_name.get("save_file_name");//형변환 cast
+			real_file_names[cnt] = (String) file_name.get("real_file_name");
+			cnt = cnt + 1;
+		}
+		*/
 		//배열형출력값(가로) {'save_file_name0','save_file_name1',...}
 		boardVO.setSave_file_names(save_file_names);
 		boardVO.setReal_file_names(real_file_names);
@@ -102,6 +111,7 @@ public class AdminController {
 	public String board_update(RedirectAttributes rdat,@RequestParam("file") MultipartFile[] files, BoardVO boardVO, PageVO pageVO) throws Exception {
 		//기존 등록된 첨부파일 목록 구하기
 		List<AttachVO> delFiles = boardService.readAttach(boardVO.getBno());
+		//List<HashMap<String,Object>> delFiles_noUse = boardService.readAttach_noUse(boardVO.getBno());
 		//jsp에 보낼 save_file_names, real_file_names 배열변수 초기값 지정
 		String[] save_file_names = new String[files.length];
 		String[] real_file_names = new String[files.length];
@@ -109,13 +119,7 @@ public class AdminController {
 		//첨부파일 수정: 기존첨부파일 삭제 후 신규파일 업로드
 		for(MultipartFile file:files) {//다중파일 업로드 호출 부분 시작 향상된 for문사용
 			if(file.getOriginalFilename() != "") {//첨부파일명이 있으면
-				//기존파일 DB에서 삭제처리할 변수 생성한 이유:업데이트jsp에서 첨부파일 개별삭제시 순서가 필요하기때문
-				int cnt = 0;
-				for(AttachVO file_name:delFiles) {
-					save_file_names[cnt] = file_name.getSave_file_name();
-					real_file_names[cnt] = file_name.getReal_file_name();
-					cnt = cnt + 1;//반복시 증가
-				}
+				
 				int sun = 0;//업데이트jsp화면에서 첨부파일을 개별 삭제시 사용할  순서가 필요하기때문 변수 추가
 				//기존파일 폴더에서 실제파일 삭제 처리
 				for(AttachVO file_name:delFiles) {
@@ -123,17 +127,20 @@ public class AdminController {
 						File target = new File(commonController.getUploadPath(), file_name.getSave_file_name());
 						if(target.exists()) {
 							target.delete();//폴더에서 기존첨부파일 지우기
+							//서비스클래스에는 첨부파일DB를 지우는 메서드가 없음. DAO를 접근해서 tbl_attach를 지웁니다.
+							boardDAO.deleteAttach(file_name.getSave_file_name());
 						}
 					}
-					//서비스클래스에는 첨부파일DB를 지우는 메서드가 없음. DAO를 접근해서 tbl_attach를 지웁니다.
-					boardDAO.deleteAttach(file_name.getSave_file_name());
 					sun = sun + 1;//개별삭제는 for문에서 딱 1번 뿐이기 때문에
 				}
 				//신규파일 폴더에 업로드 처리
-				save_file_names[index] = commonController.fileUpload(file);//폴더에 업로드저장완료
-				real_file_names[index] = file.getOriginalFilename();//"한글파일명.jpg"
+				save_file_names[index] = commonController.fileUpload(file);//신규파일 폴더에 업로드
+				real_file_names[index] = file.getOriginalFilename();//신규파일 한글파일명 저장
+			}else{
+				save_file_names[index] = null;//신규파일 폴더에 업로드
+				real_file_names[index] = null;//신규파일 한글파일명 저장
 			}
-			index = index + 1;
+			index = index + 1; 
 		}
 		boardVO.setSave_file_names(save_file_names);//UUID로 생성된 유니크한 파일명
 		boardVO.setReal_file_names(real_file_names);
@@ -198,14 +205,22 @@ public class AdminController {
 		// ..
 		//]
 		List<AttachVO> files = boardService.readAttach(bno);
+		//List<HashMap<String, Object>> files_noUse = boardService.readAttach_noUse(bno);
 		String[] save_file_names = new String[files.size()];
 		String[] real_file_names = new String[files.size()];
 		int cnt = 0;
 		for(AttachVO file_name:files) {//세로데이터를 가로데이터로 변경하는 로직
-			save_file_names[cnt] = file_name.getSave_file_name();//형변환 cast
+			save_file_names[cnt] = file_name.getSave_file_name();
 			real_file_names[cnt] = file_name.getReal_file_name();
 			cnt = cnt + 1;
 		}
+		/*
+		for(HashMap<String, Object> file_name:files_noUse) {//세로데이터를 가로데이터로 변경하는 로직
+			save_file_names[cnt] = (String) file_name.get("save_file_name");//형변환 cast
+			real_file_names[cnt] = (String) file_name.get("real_file_name");
+			cnt = cnt + 1;
+		}
+		*/
 		//배열형출력값(가로) {'save_file_name0','save_file_name1',...}
 		boardVO.setSave_file_names(save_file_names);
 		boardVO.setReal_file_names(real_file_names);
