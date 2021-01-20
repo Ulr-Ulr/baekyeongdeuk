@@ -43,15 +43,43 @@ public class baetest1 {
 		 * int sum = 0; for(int i = 1;i<=10;i++) { sum += i; }
 		 * System.out.println("1부터 10까지의 합은="+sum);
 		 */	
+		/*
+		 * for(int i=2;i<=9;i++) { for(int m=1;m<=9;m++) {
+		 * System.out.println(i+"X"+m+"="+(i*m));
+		 * }System.out.println("-----------------------------------");
+		 * 
+		 * } int result = 0; for(int i=1;i<=10;i++) { result += i;
+		 * }System.out.println("1~10까지의 합:"+result);
+		 */
 		
-		for(int i=2;i<=9;i++) {
-			for(int m=1;m<=9;m++) {
-				System.out.println(i+"X"+m+"="+(i*m));
-			}System.out.println("-----------------------------------");
+		/*
+		 * for(int i=1;i<=9;i++) { for(int j=2;j<=9;j++) {
+		 * System.out.print(j+"X"+i+"="+j*i+"	"); } System.out.println(); }
+		 */
+		/*
+		 * int i =1; int sum=0; while(i<=10) { sum+=i; i++; }System.out.println(sum);
+		 */
+		/*
+		 * int i=0; int sum=0; for(i=0;i<=100;i++) { if(i%3==0) { sum+=i; }
+		 * }System.out.println("3의배수의 합은"+sum);
+		 */
+		
+		
+		/*
+		 * while(true) { int n1=(int)(Math.random()*6)+1; int
+		 * n2=(int)(Math.random()*6)+1; System.out.println("("+n1+","+n2+")");
+		 * if(n1+n2==5) { break; } }
+		 */
+		/*
+		 * int x; int y; for(x=1;x<=10;x++) { for(y=1;y<=10;y++) { if((4*x)+(5*y)==60) {
+		 * System.out.println("("+x+","+y+")"); } } }
+		 */
+		int i;
+		for(i=1;i<=5;i++) {
 			
+			
+		
 		}
-		
-		
 	} 
 	}
 	

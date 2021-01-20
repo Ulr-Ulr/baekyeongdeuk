@@ -8,14 +8,18 @@ import java.util.List;
 import java.util.Locale;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FilenameUtils;
 import org.edu.dao.IF_BoardDAO;
 import org.edu.service.IF_BoardService;
+import org.edu.service.IF_MemberService;
 import org.edu.util.CommonController;
 import org.edu.util.SecurityCode;
 import org.edu.vo.AttachVO;
 import org.edu.vo.BoardVO;
+import org.edu.vo.MemberVO;
 import org.edu.vo.PageVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +40,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class HomeController {
 	
 	//private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	@Inject
+	private IF_MemberService memberService;
+	
 	@Inject
 	private IF_BoardService boardService;
 	
@@ -220,11 +227,20 @@ public class HomeController {
 		model.addAttribute("board_list", board_list);
 		return "home/board/board_list";
 	}
-	
+	//사용자 홈페이지 회원 마이페이지 수정 매핑
+	@RequestMapping(value="/member/mypage_update", method=RequestMethod.POST)
+	public String mypage_update(MemberVO memberVO, RedirectAttributes rdat) throws Exception {
+		memberService.updateMember(memberVO);
+		rdat.addFlashAttribute("msg","회원수정");		
+		return "redirt:/member/mypage";
+	}
 	//사용자 홈페이지 회원 마이페이지 접근 매핑
 	@RequestMapping(value="/member/mypage",method=RequestMethod.GET)
-	public String mypage() throws Exception{
-		
+	public String mypage(HttpServletRequest request, Model model) throws Exception{
+		//마이페이지는 로그인상태로만 접근 가능하기 때문에, 로그인 세션변수중 로그인 아이디변수
+		HttpSession session = request.getSession();
+		MemberVO memberVO =memberService.readMember((String) session.getAttribute("session_userid"));
+		model.addAttribute("memberVO", memberVO);
 		return "home/member/mypage";
 	}
 	
