@@ -167,10 +167,10 @@ jQuery(document).ready(function(){
 							</div>
 						</li>
 						<li class="clear">
-							<label for="enabled_lbl" class="tit_lbl pilsoo_item">대기여부</label>
+							<label for="enabled_lbl" class="tit_lbl pilsoo_item">가입승인</label>
 							<div class="app_content radio_area">
 								<input disabled checked type="radio" name="" class="css-radio" id="enabled_lbl" />
-								<label for="enabled_lbl">인증대기[관리자가 인증해야 로그인이 가능하십니다.]</label>
+								<label for="enabled_lbl">승인[관리자가 승인해야 로그인이 가능하십니다.]</label>
 								<input type="hidden" name="enabled" value="0" >
 							</div>
 						</li>
