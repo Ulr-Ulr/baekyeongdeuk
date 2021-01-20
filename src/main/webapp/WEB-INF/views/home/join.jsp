@@ -48,16 +48,19 @@ $(document).ready(function() {
 });
 </script>
 <script>
-//기존회원아이디가 존재하는지 Ajax확인 후 (RestAPI사용)
-//신규아이디일때만 [회원등록버튼]활성화시키기 초기엔 비활성화모드
-jQuery(document).ready(function(){
-	jQuery("#btn_join").attr("disabled",true);
-	jQuery("#btn_join").css("opacity","0.5");
+//기존회원아이디가 존재하는지 Ajax확인 후(RestApi사용)
+//신규아이디일때만 [회원등록 버튼] 활성화시키기, 초기엔 비활성화 시키기
+jQuery(document).ready(function(){ 
+	//$대신에 jQuery를 사용하는 목적1: 자바변수$ 헷갈리는 것을 방지 효과.
+	//목적2. PHP기반(워드프레스나 카페24쇼핑몰같은 솔루션에서 제이쿼리를 사용할때) $사용하면 작동X, jQuery로 사용O.
+	//단점. $ 간단, jQuery 손이 힘드는 게 단점.
+	jQuery("#btn_join").attr("disabled",true);//초기에는 서밋버튼 비활성화.
+	jQuery("#btn_join").css("opacity","0.5");//#은 엘리먼트의 id를 선택시 사용, .은 엘리먼트의 class를 선택시 사용.
 	jQuery("input[name='user_id']").bind("blur",function(){
-		//blur는 focus의 반대로 선택을 벗어났을 때의 이벤트
+		//블러 blur이벤트는 focus선택과는 반대이벤트=선택을 벗어났을때 이벤트
 		var user_id = jQuery(this).val();
-		if(user_id==""){
-			alert("아이디값은 필수 입력입니다.");
+		if(user_id=="") {
+			alert("아이디 값은 필수 입력 입니다.");
 			return false;
 		}
 		jQuery.ajax({
@@ -71,37 +74,38 @@ jQuery(document).ready(function(){
 					jQuery("#btn_join").css("opacity","1");
 				}
 				if(result=='1'){
-					alert('중복된 아이디가 존재합니다. 다시 입력해주세요.');
+					alert('중복 아이디가 존재 합니다. 다시입력해 주세요');
 					jQuery("input[name='user_id']").focus();
 					jQuery("#btn_join").attr("disabled",true);
-					jQuery("#btn_join").css("opacity","0.5");					
-				}			
+					jQuery("#btn_join").css("opacity","0.5");
+				}
 			},
 			error:function(result){
 				alert("API서버가 작동하지 않습니다.");
 			}
-			
 		});
 	});
 });
 </script>
-<!-- <script>
-//폼submit전송시 인증대기 상태를 disabled false상태로 전송하기
+<script>
+//폼서밋전송시 인증 대기 상태를 disabled false상태로 전송하기(아래)
+/* 아래방식 대신에 다른 방식 선택
 jQuery(document).ready(function(){
 	jQuery("form[name='join_form']").on("submit",function(event){
-		event.preventDefault();
+		event.preventDefault();//서밋이 발생시 기본전송 중지 아래내용 실행
 		jQuery("input[name='enabled']").attr("disabled",false);
 		jQuery(this).submit();
 	});
 });
-</script> -->
+*/
+</script>
 	<!-- 메인콘텐츠영역 -->
 	<div id="container">
 		<!-- 메인상단위치표시영역 -->
 		<div class="location_area customer">
 			<div class="box_inner">
 				<h2 class="tit_page">스프링 <span class="in">in</span> 자바</h2>
-				<p class="location">MYPAGE <span class="path">/</span>회원등록</p>
+				<p class="location">MYPAGE <span class="path">/</span> 회원등록</p>
 				<ul class="page_menu clear">
 					<li><a href="#" class="on">회원등록</a></li>
 				</ul>
@@ -120,7 +124,7 @@ jQuery(document).ready(function(){
 						<li class="clear">
 							<label for="user_id_lbl" class="tit_lbl pilsoo_item">아이디</label>
 							<div class="app_content">
-							<input value="" type="text" name="user_id" class="w100p" id="user_id_lbl" placeholder="아이디를 입력해주세요" required/>
+							<input value="" type="text" name="user_id"" class="w100p" id="user_id_lbl" placeholder="아이디를 입력해주세요" required/>
 							</div>
 						</li>
 						<li class="clear">
@@ -132,7 +136,7 @@ jQuery(document).ready(function(){
 						<li class="clear">
 							<label for="email_lbl" class="tit_lbl pilsoo_item">이메일</label>
 							<div class="app_content">
-							<input value="" type="email" name="email" class="w100p" id="email_lbl" placeholder="이메일을 입력해주세요" required/>
+							<input value="" type="email" name="email"" class="w100p" id="email_lbl" placeholder="이메일을 입력해주세요" required/>
 							</div>
 						</li>
 						
@@ -157,28 +161,28 @@ jQuery(document).ready(function(){
 						<li class="clear">
 							<label for="enabled_lbl" class="tit_lbl pilsoo_item">회원권한</label>
 							<div class="app_content radio_area">
-								<select  name="levels" class="gender">
+								<select name="levels" class="gender">
 									<option value="ROLE_USER" selected>일반사용자</option>
-								</select>								
+								</select>
 							</div>
 						</li>
 						<li class="clear">
-							<label for="enabled_lbl" class="tit_lbl pilsoo_item">가입승인</label>
+							<label for="enabled_lbl" class="tit_lbl pilsoo_item">대기여부</label>
 							<div class="app_content radio_area">
-								<input  type="radio"  name="" class="css-radio" id="enabled_lbl" disabled/>
-								<label for="enabled_lbl">승인[관리자승인필요]</label>														
-								<input  type="hidden"  name="enabled" value="0"/>
+								<input disabled checked type="radio" name="" class="css-radio" id="enabled_lbl" />
+								<label for="enabled_lbl">인증대기[관리자가 인증해야 로그인이 가능하십니다.]</label>
+								<input type="hidden" name="enabled" value="0" >
 							</div>
 						</li>
 						<li class="clear">
 							<label for="agree_lbl" class="tit_lbl pilsoo_item">개인정보활용동의</label>
-							<div class="app_content checkbox_area"><input disabled type="checkbox" name="agree" class="css-checkbox" id="agree_lbl" required checked/>
+							<div class="app_content checkbox_area"><input disabled type="checkbox"" name="agree" class="css-checkbox" id="agree_lbl" required checked/>
 							<label for="agree_lbl" class="agree">동의함</label>
 							</div>
 						</li>
 					</ul>
 					<p class="btn_line">
-					<button type="submit" class="btn_baseColor" id="btn_join">회원등록</button>					
+					<button type="submit" class="btn_baseColor" id="btn_join">회원등록</button>
 					</p>	
 				</fieldset>
 			</form>
@@ -188,5 +192,4 @@ jQuery(document).ready(function(){
 	</div>
 	<!-- //메이콘텐츠영역 -->
 	
-
 <%@ include file="./include/footer.jsp" %>
