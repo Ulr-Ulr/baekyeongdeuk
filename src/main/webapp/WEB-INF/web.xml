@@ -71,5 +71,9 @@
           <filter-name>springSecurityFilterChain</filter-name>
         <url-pattern>/*</url-pattern>
     </filter-mapping>
+	<!-- 로그인 세션 유지시간 타임아웃시간이 지나면 자동로그아웃 -->
+	 <session-config>
+        <session-timeout>60</session-timeout>
+    </session-config>
 	
 </web-app>

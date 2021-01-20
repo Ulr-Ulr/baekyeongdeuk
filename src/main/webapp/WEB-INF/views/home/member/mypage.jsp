@@ -86,7 +86,7 @@ $(document).ready(function(){
 						<li class="clear">
 							<label for="user_id_lbl" class="tit_lbl pilsoo_item">아이디</label>
 							<div class="app_content">
-							<input value="${memberVO.user_id}" readonly type="text" name="user_id"" class="w100p" id="user_id_lbl" placeholder="아이디를 입력해주세요" required/>
+							<input value="${memberVO.user_id}" readonly type="text" name="user_id" class="w100p" id="user_id_lbl" placeholder="아이디를 입력해주세요" required/>
 							</div>
 						</li>
 						<li class="clear">
@@ -98,7 +98,7 @@ $(document).ready(function(){
 						<li class="clear">
 							<label for="email_lbl" class="tit_lbl pilsoo_item">이메일</label>
 							<div class="app_content">
-							<input value="${memberVO.email}" type="email" name="email"" class="w100p" id="email_lbl" placeholder="이메일을 입력해주세요" required/>
+							<input value="${memberVO.email}" type="email" name="email" class="w100p" id="email_lbl" placeholder="이메일을 입력해주세요" required/>
 							</div>
 						</li>
 						
@@ -117,7 +117,7 @@ $(document).ready(function(){
 						<li class="clear">
 							<label for="point_lbl" class="tit_lbl pilsoo_item">포인트</label>
 							<div class="app_content">
-							<input value="${memberVO.point}" type="digits"" name="point" class="w100p" id="point_lbl" placeholder="숫자만 입력해주세요" required/>
+							<input value="${memberVO.point}" type="digits" name="point" class="w100p" id="point_lbl" placeholder="숫자만 입력해주세요" required/>
 							</div>
 						</li>
 						<li class="clear">
@@ -133,9 +133,9 @@ $(document).ready(function(){
 						<li class="clear">
 							<label for="enabled_lbl" class="tit_lbl pilsoo_item">탈퇴여부</label>
 							<div class="app_content radio_area">
-								<input <c:out value="${(memberVO.enabled eq 'true')?'checked':''}" /> disabled type="radio" readonly name="" class="css-radio" id="enabled_lbl" />
+								<input <c:out value="${(memberVO.enabled eq 'true')?'checked':''}" /> disabled type="radio"  name="" class="css-radio" id="enabled_lbl" />
 								<label for="enabled_lbl">회원사용</label>
-								<input <c:out value="${(memberVO.enabled eq 'false')?'checked':''}" /> disabled type="radio" readonly name="" class="css-radio" id="disabled_lbl" />
+								<input <c:out value="${(memberVO.enabled eq 'false')?'checked':''}" /> disabled type="radio"  name="" class="css-radio" id="disabled_lbl" />
 								<label for="disabled_lbl">회원탈퇴</label>
 								<input type="hidden" name="enabled" value="${memberVO.enabled}" readonly>
 							</div>

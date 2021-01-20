@@ -9,6 +9,11 @@ if("${param.msg}" == "fail") {
 	alert('로그인에 실패했습니다. 이유는 ${sessionScope["SPRING_SECURITY_LAST_EXCEPTION"].message}')
 }//스프링 시큐리티는 세션발생을 시킵니다. 위 자바변수중 스프링 세션스코프는 세션 영역을 말합니다.
 </script>
+<script>
+$(document).ready(function(){
+	$("input[name='user_id']").focus();
+});
+</script>
 	<!-- 메인콘텐츠영역 -->
 	<div id="container">
 		<!-- 메인상단위치표시영역 -->
