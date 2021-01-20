@@ -262,6 +262,18 @@ public class HomeController {
 		rdat.addFlashAttribute("msg","회원탈퇴");
 		return "redirect:/";
 	}
+	//사용자 홈페이지 회원가입 처리 매핑
+	@RequestMapping(value="/join",method=RequestMethod.POST)
+	public String join(MemberVO memberVO, RedirectAttributes rdat) throws Exception {
+		//스프링시큐리티에서 제공하는 패스워드 암호화처리 (아래3줄)
+		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+		String user_pw_encode = passwordEncoder.encode(memberVO.getUser_pw());
+		memberVO.setUser_pw(user_pw_encode);
+		
+		memberService.insertMember(memberVO);
+		rdat.addFlashAttribute("msg","회원가입");		
+		return "redirect:/login";
+	}
 	//사용자 홈페이지 회원가입 접근 매핑
 	@RequestMapping(value="/join",method=RequestMethod.GET)
 	public String join() throws Exception{

@@ -51,10 +51,50 @@ $(document).ready(function() {
 //기존회원아이디가 존재하는지 Ajax확인 후 (RestAPI사용)
 //신규아이디일때만 [회원등록버튼]활성화시키기 초기엔 비활성화모드
 jQuery(document).ready(function(){
-	Jquery("#btn_join").attr("disabled","ture");
-	Jquery("#btn_join").css("opacity","0.5");
+	jQuery("#btn_join").attr("disabled",true);
+	jQuery("#btn_join").css("opacity","0.5");
+	jQuery("input[name='user_id']").bind("blur",function(){
+		//blur는 focus의 반대로 선택을 벗어났을 때의 이벤트
+		var user_id = jQuery(this).val();
+		if(user_id==""){
+			alert("아이디값은 필수 입력입니다.");
+			return false;
+		}
+		jQuery.ajax({
+			method:"get",
+			url:"id_check?user_id="+user_id,
+			dataType:"text",
+			success:function(result){
+				if(result=='0'){
+					alert('사용가능한 아이디 입니다.');
+					jQuery("#btn_join").attr("disabled",false);
+					jQuery("#btn_join").css("opacity","1");
+				}
+				if(result=='1'){
+					alert('중복된 아이디가 존재합니다. 다시 입력해주세요.');
+					jQuery("input[name='user_id']").focus();
+					jQuery("#btn_join").attr("disabled",true);
+					jQuery("#btn_join").css("opacity","0.5");					
+				}			
+			},
+			error:function(result){
+				alert("API서버가 작동하지 않습니다.");
+			}
+			
+		});
+	});
 });
 </script>
+<!-- <script>
+//폼submit전송시 인증대기 상태를 disabled false상태로 전송하기
+jQuery(document).ready(function(){
+	jQuery("form[name='join_form']").on("submit",function(event){
+		event.preventDefault();
+		jQuery("input[name='enabled']").attr("disabled",false);
+		jQuery(this).submit();
+	});
+});
+</script> -->
 	<!-- 메인콘텐츠영역 -->
 	<div id="container">
 		<!-- 메인상단위치표시영역 -->
@@ -111,7 +151,7 @@ jQuery(document).ready(function(){
 						<li class="clear">
 							<label for="point_lbl" class="tit_lbl pilsoo_item">포인트</label>
 							<div class="app_content">
-							<input value="" type="digits" name="point" class="w100p" id="point_lbl" placeholder="숫자만 입력해주세요" required/>
+							<input readonly value="10" type="digits" name="point" class="w100p" id="point_lbl" placeholder="숫자만 입력해주세요" required/>
 							</div>
 						</li>
 						<li class="clear">
@@ -123,15 +163,16 @@ jQuery(document).ready(function(){
 							</div>
 						</li>
 						<li class="clear">
-							<label for="enabled_lbl" class="tit_lbl pilsoo_item">가입</label>
+							<label for="enabled_lbl" class="tit_lbl pilsoo_item">가입승인</label>
 							<div class="app_content radio_area">
-								<input  type="radio"  name="men" class="css-radio" id="enabled_lbl" checked/>
-								<label for="enabled_lbl">동의</label>														
+								<input  type="radio"  name="" class="css-radio" id="enabled_lbl" disabled/>
+								<label for="enabled_lbl">승인[관리자승인필요]</label>														
+								<input  type="hidden"  name="enabled" value="0"/>
 							</div>
 						</li>
 						<li class="clear">
 							<label for="agree_lbl" class="tit_lbl pilsoo_item">개인정보활용동의</label>
-							<div class="app_content checkbox_area"><input disabled type="checkbox"" name="agree" class="css-checkbox" id="agree_lbl" required checked/>
+							<div class="app_content checkbox_area"><input disabled type="checkbox" name="agree" class="css-checkbox" id="agree_lbl" required checked/>
 							<label for="agree_lbl" class="agree">동의함</label>
 							</div>
 						</li>
