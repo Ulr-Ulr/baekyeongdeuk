@@ -14,16 +14,7 @@
 	<!-- 메인콘텐츠영역 -->
 	<div id="container">
 		<!-- 메인상단위치표시영역 -->
-		<div class="location_area customer">
-			<div class="box_inner">
-				<h2 class="tit_page">스프링 <span class="in">in</span> 자바</h2>
-				<p class="location">고객센터 <span class="path">/</span> 공지사항</p>
-				<ul class="page_menu clear">
-					<li><a href="#" class="on">공지사항</a></li>
-					<li><a href="#">문의하기</a></li>
-				</ul>
-			</div>
-		</div>	
+		<%@ include file="../include/container_header.jsp" %>
 		<!-- //메인상단위치표시영역 -->
 
 		<!-- 메인본문영역 -->
@@ -66,10 +57,10 @@
 			</ul>
 			<p class="btn_line txt_right">
 				<a href="/home/board/board_list?page=${pageVO.page}" class="btn_bbs">목록</a>
-				<a href="/home/board/board_update?bno=${boardVO.bno}&page=${pageVO.page}" class= "btn_bbs">
+				<a href="/home/board/board_update?bno=${boardVO.bno}&page=${pageVO.page}" class="btn_bbs">
 				수정
 				</a>
-				<button class="btn_baseColor btn_smallColor">삭제</button>
+				<button class="btn_baseColor btn_smallColor" id="btn_board_delete">삭제</button>
 			</p>
 			
 		</div>
@@ -290,7 +281,7 @@ $(document).ready(function() {
 	$("#insertReplyBtn").on("click", function() {//댓글등록버튼을 클릭했을 때 구현내용(아래)
 		if("${session_enabled}" == "") {//버튼클릭시 비로그인시 로그인 화면으로 유도
 			alert("회원만 댓글 등록이 가능합니다.");
-			location.href = "/login";//자바스크립트 내장함수(href:hyterTextReference:URL이동함수)
+			location.href = "/login";//자바스크립트 내장기능(href:hyterTextReference:URL이동)
 			return false;
 		}
 		//alert("디버그");
@@ -371,18 +362,18 @@ $(document).ready(function() {
 </div>
 <form name="action_form">
 <input type="hidden" name="bno" value="${boardVO.bno}">
-<input type="hidden" name="page" value="${boardVO.page}">
+<input type="hidden" name="page" value="${pageVO.page}">
 </form>
-	<script>
-	$(document).ready(function(){
-		$("#btn_board_delete").on("click",function(){
-			if(confirm("정말로 삭제 하시겠습니까?")) {
-				$("form[name='action_form']").attr("method","post");
-				$("form[name='action_form']").attr("action",/board/board_delete);
-				$("form[name='action_form']").submit();
-			}
-		});
+<script>
+$(document).ready(function(){
+	$("#btn_board_delete").on("click",function(){
+		if(confirm("정말로 삭제 하시겠습니까?")) {
+			$("form[name='action_form']").attr("method","post");
+			$("form[name='action_form']").attr("action","/home/board/board_delete");
+			$("form[name='action_form']").submit();
+		}
 	});
-	</script>
+});
+</script>
 
 <%@ include file="../include/footer.jsp" %>
