@@ -5,11 +5,15 @@ public class BoardTypeVO {
 	private String board_name;
 	private Integer board_sun;
 	
-	
 	@Override
 	public String toString() {
-		return "BoardTypeVO [board_type=" + board_type + ", board_name=" + board_name + ", board_sun=" + board_sun
-				+ "]";
+		return board_type;
+	}
+	public String getBoard_type() {
+		return board_type;
+	}
+	public void setBoard_type(String board_type) {
+		this.board_type = board_type;
 	}
 	public String getBoard_name() {
 		return board_name;
@@ -23,12 +27,5 @@ public class BoardTypeVO {
 	public void setBoard_sun(Integer board_sun) {
 		this.board_sun = board_sun;
 	}
-	public String getBoard_type() {
-		return board_type;
-	}
-	public void setBoard_type(String board_type) {
-		this.board_type = board_type;
-	}
 	
 }
-
