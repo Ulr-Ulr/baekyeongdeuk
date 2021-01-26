@@ -56,6 +56,12 @@ public class AdminController {
 	
 	@Inject
 	private IF_BoardTypeService boardTypeService;
+	//게시판생성관리 등록매핑(GET)
+	@RequestMapping(value="admin/bbs_type/bbs_type_write",method=RequestMethod.GET)
+	public String bbs_type_write() throws Exception {
+		
+		return "admin/bbs_type/bbs_type_write";
+	}
 	
 	//게시판생성관리 수정매핑(POST)
 	@RequestMapping(value="/admin/bbs_type/bbs_type_update",method=RequestMethod.POST)
