@@ -1,0 +1,136 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="A6867103-65AC-22F1-D772-63593B6FBB17" name="TBL_MEMBER">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:38:41 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+<ordsAlias>table_3</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="USER_ID" id="E73F2634-10CA-0A72-7C1B-C71FAB4C1DD9">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:49:47 UTC</createdTime>
+<commentInRDBMS><![CDATA[사용자 이름]]></commentInRDBMS>
+<ownerDesignName>oracle_210127</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USER_PW" id="A785F4B2-CFD1-9851-3A26-B9D1BFB50F2C">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:49:47 UTC</createdTime>
+<commentInRDBMS><![CDATA[사용자 암호]]></commentInRDBMS>
+<ownerDesignName>oracle_210127</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<ownDataTypeParameters>255,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="USER_NAME" id="38DE57C8-369D-42B1-9183-26F2D6279DC7">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:49:47 UTC</createdTime>
+<commentInRDBMS><![CDATA[사용자 이름]]></commentInRDBMS>
+<ownerDesignName>oracle_210127</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="EMAIL" id="918E6EAC-F268-B0B9-ACFA-7524623626E1">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:49:47 UTC</createdTime>
+<commentInRDBMS><![CDATA[이메일]]></commentInRDBMS>
+<ownerDesignName>oracle_210127</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<ownDataTypeParameters>255,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="POINT" id="3CCB8E17-7187-F1C8-9EB2-BF38293270F8">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:49:47 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>11</dataTypePrecision>
+<ownDataTypeParameters>,11,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="ENABLED" id="D74B27D9-D900-BACE-D397-15700C9DD44E">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:49:47 UTC</createdTime>
+<commentInRDBMS><![CDATA[스프링 시큐리티 인증결과]]></commentInRDBMS>
+<ownerDesignName>oracle_210127</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT019</logicalDatatype>
+<dataTypePrecision>1</dataTypePrecision>
+<ownDataTypeParameters>,1,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="LEVELS" id="14B050D7-FF50-0BD2-BDF0-DC4D91E6EEE7">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:49:47 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>50</dataTypeSize>
+<ownDataTypeParameters>50,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="REG_DATE" id="B7273A7C-3300-E9CB-4254-C178BC194A53">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:49:47 UTC</createdTime>
+<commentInRDBMS><![CDATA[등록 일시]]></commentInRDBMS>
+<ownerDesignName>oracle_210127</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="UPDATE_DATE" id="7745F6EF-7F61-F0E9-3379-490B83372977">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:49:47 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="1F4FA50E-4B5C-6878-7753-4EFB24B540D5" name="TBL_MEMBER_PK">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:49:47 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="E73F2634-10CA-0A72-7C1B-C71FAB4C1DD9"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>

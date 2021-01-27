@@ -1,0 +1,66 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev11g class="oracle.dbtools.crest.model.design.storage.oracle.v11g.TableProxyOraclev11g" name="TBL_MEMBER" directorySegmentName="seg_0" id="A6867103-65AC-22F1-D772-63593B6FBB17">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:38:41 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="LEVELS" id="14B050D7-FF50-0BD2-BDF0-DC4D91E6EEE7">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:49:47 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="USER_NAME" id="38DE57C8-369D-42B1-9183-26F2D6279DC7">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:49:47 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="POINT" id="3CCB8E17-7187-F1C8-9EB2-BF38293270F8">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:49:47 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="UPDATE_DATE" id="7745F6EF-7F61-F0E9-3379-490B83372977">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:49:47 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="EMAIL" id="918E6EAC-F268-B0B9-ACFA-7524623626E1">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:49:47 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="USER_PW" id="A785F4B2-CFD1-9851-3A26-B9D1BFB50F2C">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:49:47 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="REG_DATE" id="B7273A7C-3300-E9CB-4254-C178BC194A53">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:49:47 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="ENABLED" id="D74B27D9-D900-BACE-D397-15700C9DD44E">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:49:47 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="USER_ID" id="E73F2634-10CA-0A72-7C1B-C71FAB4C1DD9">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:49:47 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="TBL_MEMBER_PK" id="1F4FA50E-4B5C-6878-7753-4EFB24B540D5">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 02:49:47 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev11g>
