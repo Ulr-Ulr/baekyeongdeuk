@@ -1,0 +1,36 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<TableProxyOraclev11g class="oracle.dbtools.crest.model.design.storage.oracle.v11g.TableProxyOraclev11g" name="TBL_ATTACH" directorySegmentName="seg_0" id="9D6FCF3B-3474-C0EC-186F-763AFF43EDE5">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 03:22:43 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+<logging>YES</logging>
+<partitionedRowMovement>DISABLE</partitionedRowMovement>
+<temporaryChanged>false</temporaryChanged>
+<accessDriverType>oracle_loader</accessDriverType>
+<rejectLimit></rejectLimit>
+<columnProxies itemClass="oracle.dbtools.crest.model.design.storage.oracle.v12c.ColumnProxyOraclev12c">
+<ColumnProxy name="REAL_FILE_NAME" id="41369FDD-C8CF-005D-2A54-69709B12B7ED">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 03:26:22 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="REG_DATE" id="488E3375-8CEE-C0E2-9A55-BEDAE63B0667">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 03:26:22 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+</ColumnProxy>
+<ColumnProxy name="SAVE_FILE_NAME" id="D7CBD3E2-B777-8125-25CF-C66C03F457DA">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 03:26:22 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+</ColumnProxy>
+</columnProxies>
+<primaryKeys>
+<PrimaryKey class="oracle.dbtools.crest.model.design.storage.oracle.v10g.PKProxyOraclev10g" name="TBL_ATTACH_PK" id="6F680BDA-46A0-0104-CA4C-2DCF7C1596C0">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 03:26:22 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+<indexSort>SORTED</indexSort>
+</PrimaryKey>
+</primaryKeys>
+</TableProxyOraclev11g>

@@ -1,0 +1,62 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<Table class="oracle.dbtools.crest.model.design.relational.Table" directorySegmentName="seg_0" id="9D6FCF3B-3474-C0EC-186F-763AFF43EDE5" name="TBL_ATTACH">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 03:22:43 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+<ordsAlias>table_5</ordsAlias>
+<allowColumnReorder>false</allowColumnReorder>
+<existDependencyGenerateInDDl>true</existDependencyGenerateInDDl>
+<parsed>true</parsed>
+<columns itemClass="oracle.dbtools.crest.model.design.relational.Column">
+<Column name="SAVE_FILE_NAME" id="D7CBD3E2-B777-8125-25CF-C66C03F457DA">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 03:26:22 UTC</createdTime>
+<commentInRDBMS><![CDATA[UUID로만들어지는 파일이름]]></commentInRDBMS>
+<ownerDesignName>oracle_210127</ownerDesignName>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<ownDataTypeParameters>255,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="REAL_FILE_NAME" id="41369FDD-C8CF-005D-2A54-69709B12B7ED">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 03:26:22 UTC</createdTime>
+<commentInRDBMS><![CDATA[한글파일명]]></commentInRDBMS>
+<ownerDesignName>oracle_210127</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT024</logicalDatatype>
+<dataTypeSize>255</dataTypeSize>
+<ownDataTypeParameters>255,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+<Column name="REG_DATE" id="488E3375-8CEE-C0E2-9A55-BEDAE63B0667">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 03:26:22 UTC</createdTime>
+<commentInRDBMS><![CDATA[등록일시]]></commentInRDBMS>
+<ownerDesignName>oracle_210127</ownerDesignName>
+<nullsAllowed>true</nullsAllowed>
+<useDomainConstraints>false</useDomainConstraints>
+<use>1</use>
+<logicalDatatype>LOGDT008</logicalDatatype>
+<ownDataTypeParameters>,,</ownDataTypeParameters>
+<autoIncrementCycle>false</autoIncrementCycle>
+</Column>
+</columns>
+<indexes itemClass="oracle.dbtools.crest.model.design.relational.Index">
+<ind_PK_UK id="6F680BDA-46A0-0104-CA4C-2DCF7C1596C0" name="TBL_ATTACH_PK">
+<createdBy>Ulr</createdBy>
+<createdTime>2021-01-27 03:26:22 UTC</createdTime>
+<ownerDesignName>oracle_210127</ownerDesignName>
+<pk>true</pk>
+<indexState>Primary Constraint</indexState>
+<isSurrogateKey>false</isSurrogateKey>
+<indexColumnUsage>
+<colUsage columnID="D7CBD3E2-B777-8125-25CF-C66C03F457DA"/>
+</indexColumnUsage>
+</ind_PK_UK>
+</indexes>
+</Table>
