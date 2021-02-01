@@ -60,7 +60,7 @@ $(document).ready(function() {
 							</a> </td>
 							<td>${boardVO.view_count}</td>
 							<td>
-							<fmt:formatDate pattern="yyyy-MM-dd HH:mm" value="${boardVO.reg_date}"/>
+							<fmt:formatDate pattern="yyyy-MM-dd HH:mm:ss" value="${boardVO.reg_date}"/>
 							</td>
 						</tr>
 					</c:forEach>
