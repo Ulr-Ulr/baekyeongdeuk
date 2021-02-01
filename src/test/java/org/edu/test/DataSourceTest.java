@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -108,11 +109,18 @@ public class DataSourceTest {
 	@Test
 	public void insertBoard() throws Exception {
 		BoardVO boardVO = new BoardVO();
+		boardVO.setBoard_type("gallery");
 		boardVO.setTitle("더미게시물");
 		boardVO.setContent("더미 내용 입니다.");
 		boardVO.setWriter("일반사용자");
+		
 		//boardVO.setBno(프라이머리키);
-		for(int cnt=0;cnt<=100;cnt++) {//더미게시물 100입력
+		for(int cnt=0;cnt<=0;cnt++) {//더미게시물 100입력
+			Date reg_date = new Date();
+			Calendar cal = Calendar.getInstance();//+
+			cal.setTime(reg_date);//+
+			cal.add(Calendar.SECOND, cnt);//+ cnt초 더하기
+			boardVO.setReg_date(reg_date);
 			boardDAO.insertBoard(boardVO);
 		}
 	}
@@ -135,7 +143,7 @@ public class DataSourceTest {
 		memberVO.setLevels("ROLE_USER");
 		Date reg_date = new Date();
 		memberVO.setReg_date(reg_date);//매퍼쿼리에서 처리로 대체
-		for(int cnt=0;cnt<=100;cnt++) {//더미사용자 100명 입력
+		for(int cnt=0;cnt<=0;cnt++) {//더미사용자 100명 입력
 			memberVO.setUser_id(memberPrimaryKey());
 			memberDAO.insertMember(memberVO);
 		}		
