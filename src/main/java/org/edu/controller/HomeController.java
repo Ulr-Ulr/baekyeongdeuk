@@ -155,8 +155,18 @@ public class HomeController {
 	}
 	
 	@RequestMapping(value="/home/board/board_update",method=RequestMethod.GET)
-	public String board_update(Model model, @ModelAttribute("pageVO") PageVO pageVO, @RequestParam("bno") Integer bno) throws Exception {
+	public String board_update(HttpServletRequest request, Model model, @ModelAttribute("pageVO") PageVO pageVO, @RequestParam("bno") Integer bno) throws Exception {
 		BoardVO boardVO = boardService.readBoard(bno);
+		
+		//수정시 본인이 작성한 글인지 체크(아래)
+		String session_userid = (String) request.getSession().getAttribute("session_userid");
+		if(!session_userid.equals(boardVO.getWriter())) {
+			model.addAttribute("msg", "본인이 작성한 글만 수정 가능합니다.\\n이전페이지로 이동");
+			//redirect대신에 forward를 사용하면 Model을 사용 가능합니다.
+			//forward 새로고침하면, 게시글 테러가 발생가능함, redirect하면, 새로고침해도 게시글 테러가 발생X
+			return "forward:/home/board/board_view?bno="+bno;
+		}
+		
 		//첨부파일처리(아래)
 		List<AttachVO> files = boardService.readAttach(bno);
 		//아래변수 List<AttachVO>세로배치를 가로배치로 변경할때 필요
@@ -253,25 +263,27 @@ public class HomeController {
 		model.addAttribute("memberVO", memberVO);
 		return "home/member/mypage";
 	}
+	
 	//사용자 홈페이지 회원탈퇴 매핑
 	@RequestMapping(value="/member/member_disabled",method=RequestMethod.POST)
-	public String member_disabled(HttpServletRequest request, MemberVO memberVO, RedirectAttributes rdat) throws Exception{
+	public String member_disabled(HttpServletRequest request, MemberVO memberVO, RedirectAttributes rdat) throws Exception {
 		memberService.updateMember(memberVO);
-		//세션값 invalidate()삭제하기
+		//세션값 invalidate() 삭제하기.
 		request.getSession().invalidate();
-		rdat.addFlashAttribute("msg","회원탈퇴");
+		rdat.addFlashAttribute("msg", "회원탈퇴");
 		return "redirect:/";
 	}
+	
 	//사용자 홈페이지 회원가입 처리 매핑
 	@RequestMapping(value="/join",method=RequestMethod.POST)
 	public String join(MemberVO memberVO, RedirectAttributes rdat) throws Exception {
-		//스프링시큐리티에서 제공하는 패스워드 암호화처리 (아래3줄)
+		//아래 3줄이 스프링 시큐리티에서 제공하는 패스워드암호화 처리 
 		BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 		String user_pw_encode = passwordEncoder.encode(memberVO.getUser_pw());
 		memberVO.setUser_pw(user_pw_encode);
 		
 		memberService.insertMember(memberVO);
-		rdat.addFlashAttribute("msg","회원가입");		
+		rdat.addFlashAttribute("msg", "회원가입");
 		return "redirect:/login";
 	}
 	//사용자 홈페이지 회원가입 접근 매핑
@@ -298,7 +310,6 @@ public class HomeController {
 		pageVO.setBoard_type("notice");
 		List<BoardVO> notice_list = boardService.selectBoard(pageVO);
 		model.addAttribute("notice_list", notice_list);
-
 		
 		//첨부파일 1개만 model클래스를 이용해서 jsp로 보냅니다.
 		String[] save_file_names = new String[board_list.size()];

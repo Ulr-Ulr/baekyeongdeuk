@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ include file="../include/header.jsp" %>
 
-
   <!-- 대시보드 본문 Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- 본문헤더 Content Header (Page header) -->
@@ -43,7 +42,7 @@
               
                 <div class="card-body">
                   <div class="form-group">
-                    <label for="user_id">title</label>
+                    <label for="title">title</label>
                     <input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요." required>
                     <!-- 폼에서 input같은 입력태그에는 name속성이 반드시 필요, 이유는 DB에 입력할때,
                     	 값을 전송하게 되는데, 전송값을 담아두는 이름이 name가 되고, 위에서는 user_id 입니다. -->
@@ -55,16 +54,17 @@
                   </div>
                   <div class="form-group">
                   	<label for="writer">writer</label>
-                  	<input  value="${session_username}"type="text" class="form-control" name="writer" id="writer" placeholder="작성자를 입력해 주세요" required>
+                  	<input value="${session_userid}" type="text" class="form-control" name="writer" id="writer" placeholder="작성자를 입력해 주세요" required>
                   </div>
                   <div class="form-group" style="margin-bottom:0px;">
                   <label>attach</label>
                   </div>
                   <c:forEach var="index" begin="0" end="1">
-                  <div class="custom-file">
+                  	<div class="custom-file">
                     <input type="file" name="file" class="custom-file-input" id="customFile_${index}">
-                    <label class="custom-file-label" for="customFile_${index}" style="color:#999;">파일첨부${index}</label>
-                  </div>
+                    <label class="custom-file-label" for="customFile_${index}" style="color:#999;">파일첨부</label>
+	                </div>
+	                <br><br>
                   </c:forEach>
                 </div>
                 <!-- /.card-body -->
@@ -111,9 +111,8 @@ $(document).ready(function(){
 	$('#content').summernote({
 		height:150,
 		lang:"ko-KR",
-		placeholder:'글내용을 입력해주세요',
-		 toolbar: [
-			
+		placeholder:'글 내용을 입력해 주세요',
+		toolbar: [
 				    ['fontname', ['fontname']],
 				    ['fontsize', ['fontsize']],
 				    ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
@@ -123,10 +122,9 @@ $(document).ready(function(){
 				    ['height', ['height']],
 				    ['insert',['link','video']],//'picture',
 				    ['view', ['fullscreen', 'help']]
-				  ],
-			fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
-			fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+				],
+		fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋음체','바탕체'],
+		fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
 	});
 });//textarea 중 content아이디영역을 섬머노트에디터로 변경처리 함수실행
 </script>
-
